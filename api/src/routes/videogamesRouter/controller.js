@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { API_KEY } = process.env;
 const axios = require("axios");
-const { Videogame } = require("../../db.js");
+const { Videogame, Genre } = require("../../db.js");
 
 // --------------- GET A LA API ----------------- \\
 
@@ -23,29 +23,39 @@ const getGames = async (name) => {
       Image: g.background_image,
       Released: g.released,
       Rating: g.rating,
-      Platform: g.platforms.map((p) => p.platform.name),
+      Genres: g.genres.map((g) => g.name),
+      Platforms: g.platforms.map((p) => p.platform.name),
     };
     return games;
   });
 
   // --------------- GET A LA DB ----------------- \\
 
-  let gamesDb = await Videogame.findAll();
+  let gamesDb = await Videogame.findAll({
+    include: [
+      {
+        model: Genre,
+        attributes: ["name"],
+        through: { attributes: [] },
+      },
+    ],
+  });
 
   gamesDb = gamesDb.map((g) => {
     let games = {
       Name: g.name,
       Id: g.id,
       Description: g.description,
-      Image: g.background_image,
+      Image: g.image,
       Released: g.released,
       Rating: g.rating,
-      Platform: g.platform,
+      Genres: g.Genres.map((g) => g.name),
+      Platforms: g.platforms,
     };
     return games;
   });
 
-  let allGames = [...response, ...gamesDb];
+  let allGames = [...gamesDb, ...response];
 
   if (!name) return allGames;
 
@@ -68,43 +78,82 @@ const newGame = async (
   image,
   released,
   rating,
-  platform
+  platforms,
+  genres
 ) => {
-  if (!name || !platform || !description) {
+  if (!name || !platforms || !description) {
     throw new Error("Faltan datos para crear el juego.");
   }
   const addGame = await Videogame.create({
     name,
     description,
-    released,
     image,
+    released,
     rating,
-    platform,
+    platforms,
+    genres,
   });
+
+  const genre = await Genre.findAll({
+    where: { name: genres },
+  });
+
+  addGame.addGenre(genre);
+
   return addGame;
 };
 
 // -------- GET A LA DB Y API POR iD --------- \\
 
-const getGame = async (id) => {
-  if (id.length > 8) {
-    const game = await Videogame.findOne({ where: { id: id } });
-    return game;
-  } else {
-    let response = await axios.get(
-      `https://api.rawg.io/api/games/${id}?key=${API_KEY}`
-    );
-    let game = {
-      Name: response.data.name,
-      Id: response.data.id,
-      Description: response.data.description,
-      Image: response.data.background_image,
-      Released: response.data.released,
-      Rating: response.data.rating,
-      Platform: response.data.platforms.map((p) => p.platform.name),
-    };
-    return game;
-  }
+const getGame = async (id, getGames) => {
+  const getGamess = await getGames()
+  let findGame = (await getGamess).filter(g => g.id == id)
+  
+  if(!findGame) throw new Error("No se encontro el game solicitado.")
+
+  return findGame;
+  // if (id.length > 8) {
+  //   let gameDb = await Videogame.findAll({
+  //     where: {
+  //       id: id,
+  //     },
+  //     include: [
+  //       {
+  //         model: Genre,
+  //         attributes: ["name"],
+  //         through: { attributes: [] },
+  //       },
+  //     ],
+  //   });
+  //   console.log(gameDb.toJSON())
+  //   let game = {
+  //     Name: gameDb.name,
+  //     Id: gameDb.id,
+  //     Description: gameDb.description,
+  //     Image: gameDb.image,
+  //     Released: gameDb.released,
+  //     Rating: gameDb.rating,
+  //     Genres: gameDb.Genres?.map((g) => g.name),
+  //     Platforms: gameDb.platforms?.map((p) => p.platform.name),
+  //   };
+  //     return game;
+  // } else {
+  //   let response = await axios.get(
+  //     `https://api.rawg.io/api/games/${id}?key=${API_KEY}`
+  //   );
+  //   let game = {
+  //     Name: response.data.name,
+  //     Id: response.data.id,
+  //     Description: response.data.description,
+  //     Image: response.data.background_image,
+  //     Released: response.data.released,
+  //     Rating: response.data.rating,
+  //     Genres: response.data.genres.map((g) => g.name),
+  //     Platforms: response.data.platforms.map((p) => p.platform.name),
+  //   };
+  //   return game;
+  // }
+
 };
 
 module.exports = {

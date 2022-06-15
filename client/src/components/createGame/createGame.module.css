@@ -1,0 +1,19 @@
+.containerForm{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: auto;
+}
+
+h5{
+    color: white;
+}
+
+input{
+    outline: none;
+    border: none;
+}
+
+.error{
+    color:red
+}

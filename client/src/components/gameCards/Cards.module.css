@@ -1,0 +1,23 @@
+/* .container{
+ display:grid;
+ grid-template-columns: 1fr 1fr 1fr ;
+ gap: 25px;
+} */
+
+.container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:center;
+    gap: 50px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    /* padding: 25px; */
+    padding-bottom: 20px;
+    padding-right:25px ;
+}
+
+li{
+    list-style: none;
+}
+

@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500');
+.btn{
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: 500; 
+    color: white;
+    padding: 9px 25px;
+    background-color: rgba(0,136,169,1);
+    border-radius: 50px;
+    cursor:pointer;
+    transition: all 0.3s case 0s;
+    text-decoration: none;
+    margin: 10px;
+}
+
+.btn:hover{
+    background-color: rgba(0,136,169,0.8); 
+}
+
+
+.Input{
+    height: 35px;
+    width: 700px;
+    border-radius: 10px;
+    border: none;
+}
+
+.Input::placeholder{
+    padding: 15px;
+}

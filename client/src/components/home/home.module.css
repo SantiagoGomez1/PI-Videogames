@@ -1,0 +1,23 @@
+/* .container{
+    background-color: #060b26; 
+    background-color: rgb(18, 17, 17);
+        background-repeat:no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        min-height: 100vh;
+} */
+.container{
+    display: flex;
+    flex-direction:row;
+}
+
+.nav{
+    /* background-color: pink; */
+    height: 100vh;
+    max-width: 337px;
+}
+
+
+h1{
+    color: white;
+}

@@ -17,7 +17,7 @@ let getGenres = async () => {
   });
 
   for (let i = 0; i < genresApi.length; i++) {
-    await Genre.create({ name: genresApi[i].Name });
+    await Genre.findOrCreate({where: { name: genresApi[i].Name }});
   }
   const genre = await Genre.findAll();
   return genre;

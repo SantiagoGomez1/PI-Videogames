@@ -1,0 +1,11 @@
+/* .container{
+    background-image: url('../../Images/home.jpg.jpg');
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+} */
+
+body{
+    background-color: rgb(18, 17, 17);
+}

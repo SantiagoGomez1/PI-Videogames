@@ -1,11 +1,18 @@
-/* .container{
-    background-image: url('../../Images/home.jpg.jpg');
-    background-repeat:no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    min-height: 100vh;
-} */
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 120px;
+}
 
 body{
     background-color: rgb(18, 17, 17);
+}
+
+.back img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 350px;
+    width: 280x;
 }

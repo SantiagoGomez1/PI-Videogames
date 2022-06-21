@@ -4,15 +4,19 @@
  gap: 25px;
 } */
 
+
+
 .container{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content:center;
-    gap: 50px;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+    margin-right: 22px;
     margin-bottom: 30px;
-    margin-top: 30px;
-    /* padding: 25px; */
+    margin-top: 18px;
     padding-bottom: 20px;
     padding-right:25px ;
 }

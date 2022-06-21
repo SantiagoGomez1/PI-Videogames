@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    res.status(201).json(await getGame(id,getGames));
+    res.status(201).json(await getGame(id, getGames));
   } catch (error) {
     res.status(404).json({ error: error.message });
   }

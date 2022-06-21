@@ -1,0 +1,38 @@
+.container h1,h2,h5,p{
+    color: white;
+}
+
+.dataContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.toContainer{
+    display: flex;
+    flex-direction: row;
+}
+
+.dataImg{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.descContainer p{
+    color: white;
+    padding: 30px 5%;
+}
+
+.releaseContainer p{
+    color: white;
+}
+
+.imgContainer img{
+    display: flex;
+    justify-content: center;
+    height: 281px;
+    width: 499px;
+    border-radius: 10px;
+}
+

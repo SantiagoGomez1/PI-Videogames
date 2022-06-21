@@ -4,8 +4,10 @@ import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import Style from "./createGame.module.css";
+import NavLink from "../nav/navLink/navLink.jsx";
 import Select from "../select/select.jsx";
+import Style from "./createGame.module.css";
+import Nav from "../nav/nav.jsx";
 
 export default function Form() {
   let Platforms = [
@@ -59,21 +61,52 @@ export default function Form() {
     });
   };
 
-  const selectPlatforms = (value) => {
+  const [maxGenres, setMaxGenres] = useState(false);
+  const [maxPlatforms, setMaxPlatforms] = useState(false);
+
+  const selectPlatforms = (e) => {
+    if (input.platforms.length > 5 ) {
+      setMaxPlatforms(true);
+      setTimeout(() => {
+        setMaxPlatforms(false);
+      }, 2000);
+      return;
+    }
+    if(e.target.value === "Select")return
     setInput({
       ...input,
-      platforms: [...new Set([...input.platforms, value])],
+      platforms: [...new Set([...input.platforms, e.target.value])],
     });
   };
 
-  const selectGenres = (value) => {
+  const selectGenres = (e) => {
+    if (input.genres.length > 4) {
+      setMaxGenres(true);
+      setTimeout(() => {
+        setMaxGenres(false);
+      }, 2000);
+      return;
+    }
+    if(e.target.value === "Select")return
     setInput({
       ...input,
-      genres: [...new Set([...input.genres, value])],
+      genres: [...new Set([...input.genres, e.target.value])],
     });
   };
-  console.log(input.platforms);
-  console.log(input.genres);
+
+  const deleteGenres = (value) => {
+    setInput({
+      ...input,
+      genres: input.genres.filter((g) => g !== value),
+    });
+  };
+
+  const deletePlatforms = (value) => {
+    setInput({
+      ...input,
+      platforms: input.platforms.filter((g) => g !== value),
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -110,6 +143,7 @@ export default function Form() {
           platforms: [],
           genres: [],
         });
+        alert("Juego creado correctamente!.");
       } catch (error) {
         console.log(error);
       }
@@ -117,80 +151,122 @@ export default function Form() {
   };
 
   return (
-    <div className={Style.container}>
-      <form className={Style.containerForm} onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <h5>Name: </h5>
-          <input
-            name="name"
-            value={input.name}
-            onChange={(e) => handleChange(e)}
-          ></input>
-        </div>
-        <div>
-          <h5>Description: </h5>
-          <input
-            name="description"
-            value={input.description}
-            onChange={(e) => handleChange(e)}
-          ></input>
-        </div>
-        <div>
-          <h5>Released: </h5>
-          <input
-            type="date"
-            name="released"
-            value={input.released}
-            onChange={(e) => handleChange(e)}
-          ></input>
-        </div>
-        <div>
-          <h5>Image:</h5>
-          <input
-            type="url"
-            name="image"
-            value={input.image}
-            onChange={(e) => handleChange(e)}
-          ></input>
-        </div>
-        <div>
-          <h5>Rating:</h5>
-          <input
-            type="range"
-            min="1"
-            max="5"
-            name="rating"
-            value={input.rating}
-            onChange={(e) => handleChange(e)}
-          ></input>
-        </div>
-        <div className={Style.selector}>
-          <div>
-            <h5>Platforms:</h5>
-            <Select
-              list={Platforms}
-              id={Platforms.id}
-              name="platforms"
-              onClick={(e) => selectPlatforms(e.target.value)}
-            />
-          </div>
-          <div>
-            <h5>Genres:</h5>
-            <Select
-              list={genres}
-              id={genres.id}
-              name="genres"
-              onClick={(e) => selectGenres(e.target.value)}
-            />
-          </div>
-        </div>
-        
-        <div className={Style.error}>
-          {errors ? <span>{errors}</span> : null}
-        </div>
+    <>
+      <Nav />
+      <div className={Style.container}>
+        <NavLink />
+        <form className={Style.containerForm} autoComplete="off" onSubmit={(e) => handleSubmit(e)}>
+          <h1>Add game</h1>
+          <br />
+          <div className={Style.containerData}>
+            <div>
+              <h2>Name* </h2>
+              <br />
 
-        <button type="submit">Create</button>
-      </form>
-    </div>
+              <input
+                className={Style.inputName}
+                name="name"
+                placeholder="Game name"
+                value={input.name}
+                onChange={(e) => handleChange(e)}
+              ></input>
+            </div>
+            <div>
+              <h2>Released* </h2>
+              <br />
+
+              <input
+                className={Style.inputReleased}
+                type="date"
+                name="released"
+                value={input.released}
+                onChange={(e) => handleChange(e)}
+              ></input>
+            </div>
+            <div>
+              <h2>Description* </h2>
+              <br />
+
+              <input
+                className={Style.inputDescription}
+                name="description"
+                placeholder="Game description"
+                value={input.description}
+                onChange={(e) => handleChange(e)}
+              ></input>
+            </div>
+            <div>
+              <h2>Image </h2>
+              <br />
+              <input
+                className={Style.inputImage}
+                type="url"
+                name="image"
+                value={input.image}
+                onChange={(e) => handleChange(e)}
+              ></input>
+            </div>
+          </div>
+          <div className={Style.containerSelects}>
+            <div className={Style.rating}>
+              <h2>Rating* </h2>
+              <br />
+              <input
+                type="range"
+                min="1"
+                max="5"
+                name="rating"
+                value={input.rating}
+                onChange={(e) => handleChange(e)}
+              ></input>
+            </div>
+
+            <div className={Style.selector}>
+              <div>
+                <h2>Platforms* </h2>
+                <br />
+                <Select
+                  list={Platforms}
+                  id={Platforms.id}
+                  name="platforms"
+                  onChange={(e) => selectPlatforms(e)}
+                />
+                <div className={Style.listPlatforms}>
+                  {input.platforms?.map((p) => (
+                   <span key={p}> <button value={p} onClick={(p) => deletePlatforms(p.target.value)}>X</button>{p}</span>
+                   ))}
+                  {maxPlatforms ? <p>Platforms exceeded</p> : null}
+                </div>
+              </div>
+
+              <div>
+                <h2>Genres* </h2>
+                <br />
+                <Select
+                  list={genres}
+                  id={genres.id}
+                  name="genres"
+                  onChange={(e) => selectGenres(e)}
+                />
+                <div className={Style.listGenres}>
+                  {input.genres?.map((g) => (
+                    <span key={g}><button value={g} onClick={(g) => deleteGenres(g.target.value)}>X</button>{g}</span>
+                    ))}
+                  {maxGenres ? <p>Genres exceeded</p> : null}
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          <div className={Style.containerButton}>
+            <div className={Style.error}>
+              {errors ? <span>{errors}</span> : null}
+            </div>
+            <button type="submit">Create</button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }

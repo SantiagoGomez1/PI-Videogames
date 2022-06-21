@@ -1,19 +1,168 @@
-.containerForm{
-    display: flex;
-    flex-direction: column;
-    width: 500px;
-    margin: auto;
+.container {
+  display: flex;
+  flex-direction: row;
 }
 
-h5{
-    color: white;
+.containerForm {
+  margin-left: 20px;
+  margin-top: 10px;
 }
 
-input{
-    outline: none;
-    border: none;
+.containerForm h5,
+h3,
+h2 {
+  color: white;
 }
 
-.error{
-    color:red
+.containerForm input {
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  /* height: 30px;
+    width: 350px; */
+}
+
+.containerData {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.containerButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+  padding-bottom: 20px;
+  padding-right: 80px;
+  gap: 5px;
+}
+
+.containerButton button {
+  height: 27px;
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background-color: rgba(0, 136, 169, 1);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s case 0s;
+  text-decoration: none;
+}
+
+.containerButton button:hover {
+  background-color: rgba(0, 136, 169, 0.8);
+}
+
+.inputDescription {
+  height: 75px;
+  width: 450px;
+}
+
+.inputName {
+  height: 37px;
+  width: 450px;
+}
+
+.inputImage {
+  height: 37px;
+  width: 450px;
+}
+
+.inputReleased {
+  height: 37px;
+  width: 450px;
+}
+
+.selector {
+  display: flex;
+  flex-direction: row;
+  padding-right: 125px;
+  padding-top: 30px;
+  gap: 120px;
+}
+
+.rating {
+  padding-top: 15px;
+}
+
+.listGenres {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.listGenres span{
+  color: white;
+}
+
+.listGenres p{
+  color: red;
+}
+
+.listGenres button{
+  border: none;
+  background: transparent;
+  color: rgb(173, 3, 3);
+  cursor: pointer;
+}
+
+.listGenres button:hover {
+  background: transparent;
+  color: red;
+}
+
+
+.selector select {
+  width: 150px;
+  height: 37px;
+  border-radius: 4px;
+}
+
+.containerSelects {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 35px;
+}
+
+.error {
+  color: red;
+}
+
+.msg span{
+  color: red;
+}
+
+.listPlatforms {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.listPlatforms span{
+  color: white;
+}
+
+.listPlatforms p{
+  color: red;
+}
+
+.listPlatforms button{
+  border: none;
+  background: transparent;
+  color: rgb(173, 3, 3);
+  cursor: pointer;
+}
+
+.listPlatforms button:hover {
+  background: transparent;
+  color: red;
 }

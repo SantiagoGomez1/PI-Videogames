@@ -1,9 +1,19 @@
+.headerC{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: auto;
+    min-width: 250px;
+    max-width: 250px;
+    /* padding: 30px 10%; */
+    padding-top: 0;
+    margin-right: 5vh;
+}
+
 .container{
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    text-align: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .btn{
@@ -17,8 +27,7 @@
     cursor:pointer;
     transition: all 0.3s case 0s;
     text-decoration: none;
-    margin: 10px;
-    /* margin-top: 50px; */
+    margin-top: 20px;
 }
 
 .btn:hover{

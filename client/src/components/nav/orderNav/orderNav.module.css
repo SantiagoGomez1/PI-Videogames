@@ -21,8 +21,9 @@
     justify-content: center;
     align-items: flex-start;
     height: auto;
-    width: 250px;
-    padding: 30px 10%;
+    min-width: 250px;
+    max-width: 250px;
+    /* padding: 30px 10%; */
     padding-top: 0;
     margin-right: 5vh;
 }
@@ -31,4 +32,33 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+
+.container select{
+    border-radius: 13px;
+    border: none;
+    height: 37px;
+    width: 135px;
+    font-size: 16px;
+    font-weight: 500; 
+    background-color: rgba(0,136,169,1);
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.container select:hover{
+    background-color: rgba(0,136,169,0.8); 
+}
+
+.selectorContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 18px;
+    padding: 19.5px;
+}
+
+.selectorContainer h5,p {
+   color: white
 }

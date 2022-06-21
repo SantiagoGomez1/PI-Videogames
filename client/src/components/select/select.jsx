@@ -1,14 +1,12 @@
 import React from "react";
 
-export default function Select({ list, name, id, onClick }) {
+export default function Select({ list, name, onChange }) {
   return (
     <div>
-      <select name={name} onClick={onClick}>
-        <option>
-            Select
-        </option>
+      <select name={name} onChange={onChange}>
+        <option>Select</option>
             {list?.map((g) => (
-              <option>{g.name}</option>
+              <option key={g.id}>{g.name}</option>
             ))}
       </select>
     </div>

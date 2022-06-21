@@ -10,8 +10,6 @@ let getGenres = async () => {
   let genresApi = response.data.results.map((g) => {
     let genres = {
       Name: g.name,
-      // Id: g.id,
-      // Games : g.games.map(g => g.name)
     };
     return genres;
   });

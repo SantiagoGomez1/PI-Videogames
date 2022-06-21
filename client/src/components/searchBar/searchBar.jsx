@@ -10,16 +10,18 @@ export default function SearchBar() {
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.type]: e.target.value,
-    });
+    setInput(
+      e.target.value
+    );
   };
 
   const getGames = () => {
-    input.length !== 0
-      ? dispatch(getByName(input.text))
-      : alert("Debes ingresar un juego");
+    if (input.length !== 0) {
+      dispatch(getByName(input));
+      setInput("");
+    } else {
+      alert("Debes ingresar un juego");
+    }
   };
 
   return (
@@ -27,8 +29,8 @@ export default function SearchBar() {
       <input
         className={Style.Input}
         placeholder="Search a game"
-        type="text"
-        value={input.type}
+        name="text"
+        value={input}
         onChange={(e) => handleChange(e)}
       ></input>
       <button className={Style.btn} onClick={() => getGames(input)}>

@@ -22,6 +22,11 @@ h2 {
     width: 350px; */
 }
 
+::placeholder {
+  display: flex;
+  padding: 10px;
+}
+
 .containerData {
   display: flex;
   flex-direction: row;

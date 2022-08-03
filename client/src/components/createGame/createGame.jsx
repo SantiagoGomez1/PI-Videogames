@@ -10,6 +10,10 @@ import Style from "./createGame.module.css";
 import Nav from "../nav/nav.jsx";
 
 export default function Form() {
+  const genres = useSelector((state) => state.genres);
+
+  const games = useSelector((state) => state.games);
+
   let Platforms = [
     { name: "PC", id: 1 },
     { name: "PlayStation", id: 2 },
@@ -51,8 +55,6 @@ export default function Form() {
     genres: [],
   });
 
-  const genres = useSelector((state) => state.genres);
-
   const [errors, setErrors] = useState("");
   const handleChange = (e) => {
     setInput({
@@ -61,18 +63,22 @@ export default function Form() {
     });
   };
 
+  const exist = games.every(
+    (r) => r.Name.toUpperCase() !== input.name.toUpperCase()
+  );
+
   const [maxGenres, setMaxGenres] = useState(false);
   const [maxPlatforms, setMaxPlatforms] = useState(false);
 
   const selectPlatforms = (e) => {
-    if (input.platforms.length > 5 ) {
+    if (input.platforms.length > 5) {
       setMaxPlatforms(true);
       setTimeout(() => {
         setMaxPlatforms(false);
       }, 2000);
       return;
     }
-    if(e.target.value === "Select")return
+    if (e.target.value === "Select") return;
     setInput({
       ...input,
       platforms: [...new Set([...input.platforms, e.target.value])],
@@ -87,7 +93,7 @@ export default function Form() {
       }, 2000);
       return;
     }
-    if(e.target.value === "Select")return
+    if (e.target.value === "Select") return;
     setInput({
       ...input,
       genres: [...new Set([...input.genres, e.target.value])],
@@ -123,6 +129,8 @@ export default function Form() {
       setErrors("Name required");
     } else if (!input.description) {
       setErrors("Description required");
+    } else if (input.description.length >= 200) {
+      setErrors("You are exceeding the characters in the description");
     } else if (!input.released.trim()) {
       setErrors("Released date required");
     } else if (!input.rating) {
@@ -131,9 +139,11 @@ export default function Form() {
       setErrors("Select at least one platform");
     } else if (!input.genres.length) {
       setErrors("Select at least one genre");
+    } else if (!exist) {
+      setErrors("The name of the game already exists");
     } else {
       try {
-        await axios.post("http://localhost:3001/videogames", input);
+        await axios.post("/videogames", input);
         setInput({
           name: "",
           description: "",
@@ -155,7 +165,11 @@ export default function Form() {
       <Nav />
       <div className={Style.container}>
         <NavLink />
-        <form className={Style.containerForm} autoComplete="off" onSubmit={(e) => handleSubmit(e)}>
+        <form
+          className={Style.containerForm}
+          autoComplete="off"
+          onSubmit={(e) => handleSubmit(e)}
+        >
           <h1>Add game</h1>
           <br />
           <div className={Style.containerData}>
@@ -233,8 +247,17 @@ export default function Form() {
                 />
                 <div className={Style.listPlatforms}>
                   {input.platforms?.map((p) => (
-                   <span key={p}> <button value={p} onClick={(p) => deletePlatforms(p.target.value)}>X</button>{p}</span>
-                   ))}
+                    <span key={p}>
+                      {" "}
+                      <button
+                        value={p}
+                        onClick={(p) => deletePlatforms(p.target.value)}
+                      >
+                        X
+                      </button>
+                      {p}
+                    </span>
+                  ))}
                   {maxPlatforms ? <p>Platforms exceeded</p> : null}
                 </div>
               </div>
@@ -250,14 +273,20 @@ export default function Form() {
                 />
                 <div className={Style.listGenres}>
                   {input.genres?.map((g) => (
-                    <span key={g}><button value={g} onClick={(g) => deleteGenres(g.target.value)}>X</button>{g}</span>
-                    ))}
+                    <span key={g}>
+                      <button
+                        value={g}
+                        onClick={(g) => deleteGenres(g.target.value)}
+                      >
+                        X
+                      </button>
+                      {g}
+                    </span>
+                  ))}
                   {maxGenres ? <p>Genres exceeded</p> : null}
                 </div>
               </div>
-
             </div>
-
           </div>
           <div className={Style.containerButton}>
             <div className={Style.error}>

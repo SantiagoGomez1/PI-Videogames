@@ -1,4 +1,3 @@
-// import { DELETE_HOUSE } from "../actions";
 import { GET_ALL_VIDEOGAMES } from "../actions/index";
 import { GET_GENRES } from "../actions/index";
 import { GET_BY_ID } from "../actions/index";
@@ -38,77 +37,86 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_GENRE:
-      let allGames = state.copyGames
-      let filterGames = action.payload === 'All' ? allGames : allGames.filter(g => g.Genres.includes(action.payload))
-      return{
+      let allGames = state.copyGames;
+      let filterGames =
+        action.payload === "All"
+          ? allGames
+          : allGames.filter((g) => g.Genres.includes(action.payload));
+      return {
         ...state,
         games: filterGames,
       };
 
     case FILTER_BY_CREATED:
-      let allsGames = state.copyGames
-      let gameCreated = action.payload === 'Created' ? allsGames.filter(g=> typeof g.Id === 'string') : allsGames.filter(g=> typeof g.Id !== 'string')
-      return{
-         ...state,
-        games: action.payload === 'All' ? allsGames : gameCreated
+      let allsGames = state.copyGames;
+      let gameCreated =
+        action.payload === "Created"
+          ? allsGames.filter((g) => typeof g.Id === "string")
+          : allsGames.filter((g) => typeof g.Id !== "string");
+      return {
+        ...state,
+        games: action.payload === "All" ? allsGames : gameCreated,
       };
 
     case SORT_VIDEOGAME:
-      let sortArr = action.payload === 'ASC' ? state.games.sort((a,b) => {
-        if(a.Name > b.Name){
-          return 1;
-          }
-        if(b.Name > a.Name){
-          return -1;
-          }
-        return 0
-      }) :
-      state.games.sort((a,b)=>{
-        if(a.Name > b.Name){
-          return -1;
-          }
-        if(b.Name > a.Name){
-          return 1;
-          }
-        return 0
-      })
+      let sortArr =
+        action.payload === "ASC"
+          ? state.games.sort((a, b) => {
+              if (a.Name > b.Name) {
+                return 1;
+              }
+              if (b.Name > a.Name) {
+                return -1;
+              }
+              return 0;
+            })
+          : state.games.sort((a, b) => {
+              if (a.Name > b.Name) {
+                return -1;
+              }
+              if (b.Name > a.Name) {
+                return 1;
+              }
+              return 0;
+            });
       return {
         ...state,
-        games: sortArr
+        games: sortArr,
       };
 
-      case SORT_RATING:
-        let sortRat = action.payload === 'High' ? state.games.sort((a,b) => {
-          if(a.Rating > b.Rating){
-            return 1;
-            }
-          if(b.Rating > a.Rating){
-            return -1;
-            }
-          return 0
-        }) :
-        state.games.sort((a,b)=>{
-          if(a.Rating > b.Rating){
-            return -1;
-            }
-          if(b.Rating > a.Rating){
-            return 1;
-            }
-          return 0
-        })
-        return {
-          ...state,
-          games: sortRat
-        };
-
-
-
-    //  case DELETE_HOUSE:
-    //    return{
-    //      ...state,
-    //      houses: state.houses.filter( e => action.payload !== e.id )
-    //    }
-
+    case SORT_RATING:
+      let sortRat =
+        action.payload === "Low"
+          ? state.games.sort((a, b) => {
+              if (a.Rating > b.Rating) {
+                return 1;
+              }
+              if (b.Rating > a.Rating) {
+                return -1;
+              }
+              return 0;
+            })
+          : state.games.sort((a, b) => {
+              if (a.Rating > b.Rating) {
+                return -1;
+              }
+              if (b.Rating > a.Rating) {
+                return 1;
+              }
+              return 0;
+            });
+      return {
+        ...state,
+        games: sortRat,
+      };
+    // HECHO DURANTE LA CORRECION EN VIVO
+    // case SORT_RATING_MAYOR:
+    //   let sortGames = state.games
+    //   let sortRatMayor = action.payload === "High3" ? sortGames.filter(g => g.Rating <= 3) : null;
+    //   return {
+    //     ...state,
+    //     games: sortRatMayor
+    //   }
     default:
       return state;
   }

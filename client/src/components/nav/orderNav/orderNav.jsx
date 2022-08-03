@@ -14,17 +14,14 @@ import {
 import Style from "./orderNav.module.css";
 
 export default function OrderNav({ isRefresh }) {
-  // isFilter,
   const dispatch = useDispatch();
 
   const handleFilterByGenre = (e) => {
     dispatch(filterGenres(e.target.value));
-    // isFilter();
   };
 
   const handleFilterCreate = (e) => {
     dispatch(filterGamesCreated(e.target.value));
-    // isFilter();
   };
 
   const handleSortVideogame = (e) => {
@@ -36,6 +33,12 @@ export default function OrderNav({ isRefresh }) {
     dispatch(sortRating(e.target.value));
     isRefresh(e.target.value);
   };
+  // HECHO DURANTE LA CORRECION EN VIVO
+  // const handleSortRatingMayor = (e) => {
+  //   console.log(e)
+  //   dispatch(sortRatingMayora3(e.target.value));
+  //   isRefresh(e.target.value);
+  // };
 
   return (
     <header className={Style.headerC}>
@@ -52,7 +55,7 @@ export default function OrderNav({ isRefresh }) {
         </div>
         <div className={Style.selectorContainer}>
           <p> Order by: </p>
-             <h5>Genres</h5>
+          <h5>Genres</h5>
           <div>
             <select onChange={(e) => handleFilterByGenre(e)}>
               <option value="All">All Games</option>
@@ -78,7 +81,6 @@ export default function OrderNav({ isRefresh }) {
               <option value="Educational">Educational</option>
               <option value="Card">Card</option>
             </select>
-            {/* <SelectGenres onChange={(e) => handleFilterByGenre(e.target.value)}/> */}
           </div>
           <h5>Created</h5>
           <div>
@@ -102,6 +104,11 @@ export default function OrderNav({ isRefresh }) {
               <option value="Low">Low Rate</option>
             </select>
           </div>
+          {/* <div>
+            <button value={"High3"} onClick={(e) => handleSortRatingMayor(e)}>
+              Press
+            </button>
+          </div> */}
         </div>
       </nav>
     </header>

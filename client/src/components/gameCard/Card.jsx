@@ -8,7 +8,7 @@ export default function Card({ img, name, genres, id }) {
   return (
     <div className={Style.container}>
       <div className={Style.image}>
-        <Link to={`/home/${id}`}><img src={img} alt="Loading..." /></Link>
+        <Link to={`/home/${id}`}><img src={img} alt={img}/></Link>
       </div>
       <div className={Style.name}>
         <p>{name}</p>

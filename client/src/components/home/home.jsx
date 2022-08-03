@@ -14,8 +14,6 @@ import Nav from "../nav/nav.jsx";
 export default function Home() {
   const dispatch = useDispatch();
 
-  // const [filter, setFilter] = useState(false);
-
   const [reload, setReload] = useState("");
 
   const games = useSelector((state) => state.games);
@@ -30,28 +28,18 @@ export default function Home() {
     return reload;
   };
 
-  // const isFilter = (flag) => {
-  //   if (flag) {
-  //     setFilter(false);
-  //   } else {
-  //     setFilter(true);
-  //   }
-  // };
-
   return (
     <>
       <Nav />
       <div className={Style.container}>
         <div className={Style.nav}>
           <OrderNav isRefresh={isRefresh} />
-          {/* isFilter={isFilter} */}
         </div>
         {!games[0] ? (
           <Loading />
         ) : (
           <div className={Style.cardContainer}>
             <Cards isRefresh={isRefresh} />
-            {/* filter={filter} isFilter={isFilter} */}
           </div>
         )}
       </div>

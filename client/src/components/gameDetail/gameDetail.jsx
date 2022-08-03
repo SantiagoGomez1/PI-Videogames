@@ -6,10 +6,10 @@ import NavLink from "../nav/navLink/navLink.jsx";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 
-import { getById } from "../../redux/actions";
+import { getById, deleteById } from "../../redux/actions";
 
 export default function GameDetail() {
   const dispatch = useDispatch();
@@ -20,7 +20,21 @@ export default function GameDetail() {
     dispatch(getById(id));
   }, [dispatch, id]);
 
+  const history = useHistory();
+
   const gameDetail = useSelector((state) => state.game);
+
+  const handleDeleteGame = () => {
+    const eleccion = prompt(
+      "¿Estas seguro de eliminar este juego? \n1: SI \n2: NO"
+    );
+    if (eleccion == 1) {
+      dispatch(deleteById(id));
+      history.push("/home");
+    } else {
+      return;
+    }
+  };
 
   return (
     <>
@@ -77,6 +91,9 @@ export default function GameDetail() {
                   : gameDetail.description?.replace(/<[^>]*>?/g, "")}
               </p>
             </div>
+            {id.length > 8 ? (
+              <button onClick={() => handleDeleteGame()}>Delete game</button>
+            ) : null}
           </div>
         </div>
       </div>

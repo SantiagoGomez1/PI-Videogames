@@ -5,6 +5,7 @@
 .dataContainer{
     display: flex;
     flex-direction: column;
+    /* max-width: 768px; */
 }
 
 .toContainer{
@@ -15,8 +16,8 @@
 .dataImg{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    padding: 15px;
+    gap: 300px;
+    padding: 10px;
 }
 
 .descContainer p{
@@ -36,3 +37,20 @@
     border-radius: 10px;
 }
 
+.dataContainer button {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: 500; 
+    color: white;
+    padding: 3px 25px;
+    background-color: rgba(0,136,169,1);
+    border-radius: 7px;
+    cursor:pointer;
+    transition: all 0.3s case 0s;
+    text-decoration: none;
+    margin: 10px;
+}
+
+.dataContainer button:hover{
+    background-color: rgba(0,136,169,0.8); 
+}

@@ -21,17 +21,11 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      // released: {
-      //   type: DataTypes.DATEONLY,
-      //   defaultValue: DataTypes.NOW,
-      // },
       released: {
         type: DataTypes.STRING,
       },
       image: {
         type: DataTypes.STRING,
-        defaultValue:
-          "https://i.pinimg.com/originals/24/58/5f/24585fc9b7433a224a6ff5506e346969.png",
       },
       rating: {
         type: DataTypes.FLOAT,

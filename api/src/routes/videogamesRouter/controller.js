@@ -7,7 +7,6 @@ const { Videogame, Genre } = require("../../db.js");
 
 const getGames = async (name) => {
   let gamesApi = [];
-  // CAMBIAR METODO PARA TRAER LOS 100 JUEGOS (MEJORAR EL TIEMPO) \\
   for (let i = 1; i <= 5; i++) {
     let response = await axios.get(
       `https://api.rawg.io/api/games?key=${API_KEY}&page=${i}`
@@ -87,7 +86,9 @@ const newGame = async (
   const addGame = await Videogame.create({
     name,
     description,
-    image,
+    image:
+      image ||
+      "https://www.diariovivo.com/wp-content/uploads/2019/11/blog_game_on_feature_image_2019-750x450.jpg",
     released,
     rating,
     platforms,
@@ -149,8 +150,16 @@ const getGame = async (id) => {
   }
 };
 
+// -------- DELETE GAME --------- \\
+const deleteGame = async (id) => {
+  Videogame.destroy({ where: { id: id } });
+
+  return "Juego eliminado correctamente"
+};
+
 module.exports = {
   getGames,
   newGame,
   getGame,
+  deleteGame,
 };

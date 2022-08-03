@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getGames, newGame, getGame } = require("./controller");
+const { getGames, newGame, getGame, deleteGame } = require("./controller");
 const router = Router();
 
 router.get("/", async (req, res) => {
@@ -42,5 +42,15 @@ router.get("/:id", async (req, res) => {
     res.status(404).json({ error: error.message });
   }
 });
+
+router.delete("/:id", async(req,res) => {
+  const { id } = req.params;
+  try {
+    const game = await deleteGame(id)
+    res.status(201).json(game)
+  } catch (error) {
+    res.status(404).json({error: error.message})
+  }
+})
 
 module.exports = router;

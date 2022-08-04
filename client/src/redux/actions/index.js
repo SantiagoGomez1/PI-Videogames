@@ -12,7 +12,7 @@ export const SORT_RATING = "SORT_RATING";
 export const SORT_RATING_MAYOR = "SORT_RATING_MAYOR";
 
 export const getGames = () => (dispatch) => {
-  return fetch("/videogames")
+  return fetch("https://umbrella-games.herokuapp.com/videogames")
     .then((response) => response.json())
     .then((games) => {
       dispatch({ type: "GET_ALL_VIDEOGAMES", payload: games });
@@ -20,7 +20,7 @@ export const getGames = () => (dispatch) => {
 };
 
 export const getByName = (name) => (dispatch) => {
-  return fetch(`/videogames?name=${name}`)
+  return fetch(`https://umbrella-games.herokuapp.com/videogames?name=${name}`)
     .then((response) => response.json())
     .then((games) => {
       if (games.error) return alert("Ingresar un juego valido.");
@@ -29,16 +29,16 @@ export const getByName = (name) => (dispatch) => {
 };
 
 export const getById = (id) => async (dispatch) => {
-  let game = await axios.get(`/videogames/${id}`);
+  let game = await axios.get(`https://umbrella-games.herokuapp.com/videogames/${id}`);
   return dispatch({ type: "GET_BY_ID", payload: game.data });
 };
 
 export const deleteById = (id) => async () => {
-  await axios.delete(`/videogames/${id}`);
+  await axios.delete(`https://umbrella-games.herokuapp.com/videogames/${id}`);
 };
 
 export const getGenres = () => (dispatch) => {
-  return fetch(`/genres`)
+  return fetch(`https://umbrella-games.herokuapp.com/genres`)
     .then((response) => response.json())
     .then((genres) => {
       dispatch({ type: "GET_GENRES", payload: genres });

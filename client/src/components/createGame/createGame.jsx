@@ -143,7 +143,7 @@ export default function Form() {
       setErrors("The name of the game already exists");
     } else {
       try {
-        await axios.post("https://umbrella-games.vercel.app/create", input);
+        await axios.post("https://umbrella-games.herokuapp.com/videogames", input);
         setInput({
           name: "",
           description: "",
